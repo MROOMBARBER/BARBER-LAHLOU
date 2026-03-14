@@ -140,6 +140,11 @@
         .btn-maps:hover { box-shadow: 0 10px 20px rgba(66, 133, 244, 0.3) !important; }
         @keyframes pulse-maps { 0%, 100% { box-shadow: 0 0 5px rgba(66, 133, 244, 0.2); } 50% { box-shadow: 0 0 15px rgba(66, 133, 244, 0.4); } }
 
+        /* Style Spécial Waze */
+        .btn-waze { border-image: linear-gradient(45deg, #33f1ff, #00d4fe, #33f1ff) 1; animation: pulse-waze 2.7s infinite ease-in-out; color: #33f1ff; }
+        .btn-waze:hover { box-shadow: 0 10px 20px rgba(0, 212, 254, 0.4) !important; }
+        @keyframes pulse-waze { 0%, 100% { box-shadow: 0 0 5px rgba(0, 212, 254, 0.2); } 50% { box-shadow: 0 0 18px rgba(0, 212, 254, 0.4); } }
+
         .btn-google { border-image: linear-gradient(45deg, #4285F4, #EA4335, #FBBC05, #34A853) 1; animation: pulse-google 2s infinite ease-in-out; color: #ffffff; }
         .btn-google:hover { box-shadow: 0 10px 20px rgba(251, 188, 5, 0.4) !important; }
         @keyframes pulse-google { 0%, 100% { box-shadow: 0 0 5px rgba(251, 188, 5, 0.2); } 50% { box-shadow: 0 0 20px rgba(251, 188, 5, 0.5); } }
@@ -304,10 +309,15 @@
                 <div class="icon-3d">
                     <svg width="24" height="24" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                        <path fill="#34A853" d="M12 11.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" opacity=".3"/>
                     </svg>
                 </div>
                 <span>GOOGLE MAPS</span>
+            </a>
+
+            <!-- Waze (NOUVEAU) -->
+            <a href="https://waze.com/ul/hevfwc76gs" class="link-btn btn-waze" target="_blank">
+                <div class="icon-3d"><i class="fab fa-waze"></i></div>
+                <span>WAZE NAVIGATION</span>
             </a>
 
             <!-- Avis Google -->
@@ -412,19 +422,19 @@
             }
         }
 
-        // Lightbox Zoom Functions
+        // Lightbox
         function openLightbox(src) {
             const lightbox = document.getElementById('lightbox');
             const img = document.getElementById('lightbox-img');
             img.src = src;
             lightbox.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Empêche le scroll
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
             const lightbox = document.getElementById('lightbox');
             lightbox.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Réactive le scroll
+            document.body.style.overflow = 'auto';
         }
 
         function copyToClipboard(text) {
