@@ -75,6 +75,7 @@
         .btn-waze { background-image: linear-gradient(#0f0f0f, #0f0f0f), linear-gradient(45deg, #33f1ff, #00d4fe, #33f1ff); color: #33f1ff; animation: pulse-waze 2.7s infinite; }
         .btn-maps { background-image: linear-gradient(#0f0f0f, #0f0f0f), linear-gradient(45deg, #4285F4, #34A853, #FBBC05, #EA4335); color: #4285f4; animation: pulse-maps 2.8s infinite; }
         .btn-google { background-image: linear-gradient(#0f0f0f, #0f0f0f), linear-gradient(45deg, #4285F4, #EA4335, #FBBC05, #34A853); color: #ffffff; animation: pulse-google 2s infinite; }
+        .btn-tarifs { background-image: linear-gradient(#0f0f0f, #0f0f0f), linear-gradient(45deg, #d4af37, #f1c40f, #d4af37); color: #f1c40f; animation: pulse-tarifs 2.6s infinite; }
 
         .link-btn:hover { transform: translateY(-5px) scale(1.03); filter: brightness(1.2); }
         .link-btn:active { transform: translateY(-2px) scale(0.95); }
@@ -118,6 +119,7 @@
         @keyframes pulse-waze { 0%, 100% { box-shadow: 0 0 5px rgba(0, 212, 254, 0.2); } 50% { box-shadow: 0 0 18px rgba(0, 212, 254, 0.4); } }
         @keyframes pulse-maps { 0%, 100% { box-shadow: 0 0 5px rgba(66, 133, 244, 0.2); } 50% { box-shadow: 0 0 15px rgba(66, 133, 244, 0.4); } }
         @keyframes pulse-google { 0%, 100% { box-shadow: 0 0 5px rgba(251, 188, 5, 0.2); } 50% { box-shadow: 0 0 20px rgba(251, 188, 5, 0.5); } }
+        @keyframes pulse-tarifs { 0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); } 50% { box-shadow: 0 0 18px rgba(212, 175, 55, 0.4); } }
 
         /* --- DIAPORAMA (SLIDER) --- */
         .diaporama-container {
@@ -198,8 +200,8 @@
             letter-spacing: 1px;
         }
 
-        /* --- LIGHTBOX SLIDER --- */
-        #lightbox {
+        /* --- LIGHTBOX (Plein écran) --- */
+        #lightbox, #tarifs-modal {
             display: none;
             position: fixed;
             inset: 0;
@@ -219,7 +221,7 @@
             align-items: center;
         }
 
-        #lightbox img {
+        #lightbox img, #tarifs-modal img {
             max-width: 90%;
             max-height: 75vh;
             border-radius: 20px;
@@ -227,6 +229,12 @@
             box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
             user-select: none;
             transition: transform 0.3s ease;
+            animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .nav-arrow {
@@ -275,7 +283,7 @@
         }
 
         /* Modal WiFi */
-        #wifi-modal {
+        #wifi-modal-box {
             display: none;
             position: absolute;
             inset: 0;
@@ -315,7 +323,7 @@
         <!-- Section Liens -->
         <div class="links-container">
             
-            <!-- Avis Google (En blanc attirant) -->
+            <!-- Avis Google -->
             <a href="https://www.google.com/search?q=avis+sur+barber+lahlou+casablanca&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOekMCUEfm0_0GKGWMNcRkFF-GUING27i-P1LlsDBXJn7P7YB4arTqiU6IDs4I7iOzO_Vng2jn31KwAgJnIP5KXcN2U2fzVnIL6KwoywoexDAuXic8g%3D%3D" class="link-btn btn-google" target="_blank">
                 <div class="icon-3d">
                     <svg width="24" height="24" viewBox="0 0 24 24">
@@ -330,6 +338,12 @@
                     <div class="flex text-[10px] text-[#FBBC05] mt-1 drop-shadow-md">★★★★★</div>
                 </div>
             </a>
+
+            <!-- Nos Tarifs (NOUVEAU) -->
+            <button onclick="openTarifs()" class="link-btn btn-tarifs">
+                <div class="icon-3d"><i class="fas fa-file-invoice-dollar text-xl"></i></div>
+                <span>NOS TARIFS 💸</span>
+            </button>
 
             <!-- WhatsApp -->
             <a href="https://wa.me/212614660292" class="link-btn btn-whatsapp" target="_blank">
@@ -362,7 +376,7 @@
 
         <div class="divider"></div>
 
-        <!-- --- NOUVEAU DIAPORAMA --- -->
+        <!-- --- DIAPORAMA --- -->
         <h3 class="gold-text text-[10px] uppercase tracking-[0.4em] mb-2 opacity-70">NOTRE TRAVAIL</h3>
         <p class="text-[9px] text-gray-500 mb-2 uppercase">Glisser pour voir plus</p>
         
@@ -409,8 +423,15 @@
             <p class="text-[10px] text-gray-500 mt-6 tracking-widest uppercase opacity-40">GLISSER POUR DÉFILER</p>
         </div>
 
+        <!-- Modal Tarifs -->
+        <div id="tarifs-modal" onclick="closeTarifs()">
+            <div class="close-btn">&times;</div>
+            <img src="https://i.postimg.cc/D0JmWHXP/IMG-9888.jpg" alt="Nos Tarifs">
+            <p class="text-[10px] text-gray-500 mt-6 tracking-widest uppercase opacity-40">TAPER N'IMPORTE OÙ POUR FERMER</p>
+        </div>
+
         <!-- Modal WiFi -->
-        <div id="wifi-modal">
+        <div id="wifi-modal-box">
             <h2 class="gold-text text-2xl mb-8">ACCÈS WIFI</h2>
             <div class="wifi-info-box space-y-6 mb-10 text-center">
                 <div>
@@ -463,26 +484,24 @@
             updateDiaporama();
         }
 
-        // Auto défilement
         let autoSlide = setInterval(nextSlide, 3500);
 
-        // Swipe pour le Diaporama Principal
         let sliderStartX = 0;
         const mainDiaporama = document.getElementById('main-diaporama');
 
         mainDiaporama.addEventListener('touchstart', (e) => {
             sliderStartX = e.changedTouches[0].screenX;
-            clearInterval(autoSlide); // Pause
+            clearInterval(autoSlide); 
         }, {passive: true});
 
         mainDiaporama.addEventListener('touchend', (e) => {
             let sliderEndX = e.changedTouches[0].screenX;
             let diff = sliderStartX - sliderEndX;
 
-            if (diff > 50) nextSlide(); // Swipe gauche
-            else if (diff < -50) prevSlide(); // Swipe droite
+            if (diff > 50) nextSlide(); 
+            else if (diff < -50) prevSlide(); 
             
-            autoSlide = setInterval(nextSlide, 3500); // Reprise
+            autoSlide = setInterval(nextSlide, 3500); 
         }, {passive: true});
 
 
@@ -490,7 +509,7 @@
         let lightboxIdx = 0;
         
         function openLightbox(idx) {
-            clearInterval(autoSlide); // Arrête le diaporama quand on ouvre le plein écran
+            clearInterval(autoSlide); 
             lightboxIdx = idx;
             updateLightbox();
             document.getElementById('lightbox').style.display = 'flex';
@@ -500,7 +519,7 @@
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
             document.body.style.overflow = 'auto';
-            autoSlide = setInterval(nextSlide, 3500); // Relance le diaporama
+            autoSlide = setInterval(nextSlide, 3500); 
         }
 
         function changeLightboxImage(step) {
@@ -522,7 +541,6 @@
             });
         }
 
-        // Swipe pour le Lightbox
         let lbStartX = 0;
         const lbElem = document.getElementById('lightbox');
 
@@ -538,18 +556,32 @@
             else if (diff < -50) changeLightboxImage(-1);
         }, {passive: true});
 
-        // Clavier
+        // --- GESTION TARIFS ---
+        function openTarifs() {
+            document.getElementById('tarifs-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTarifs() {
+            document.getElementById('tarifs-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- Clavier ---
         window.addEventListener('keydown', (e) => {
             if (document.getElementById('lightbox').style.display === 'flex') {
                 if (e.key === 'ArrowRight') changeLightboxImage(1);
                 if (e.key === 'ArrowLeft') changeLightboxImage(-1);
                 if (e.key === 'Escape') closeLightbox();
             }
+            if (document.getElementById('tarifs-modal').style.display === 'flex') {
+                if (e.key === 'Escape') closeTarifs();
+            }
         });
 
         // --- AUTRES UTILS ---
         function toggleWifi() {
-            const m = document.getElementById('wifi-modal');
+            const m = document.getElementById('wifi-modal-box');
             m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
         }
 
