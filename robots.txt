@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /femme/
+Sitemap: https://barberlahlou.com/sitemap.xml
